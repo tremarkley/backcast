@@ -4,11 +4,14 @@ var AppView = Backbone.View.extend({
 
   initialize: function() {
     this.videos = new Videos(window.exampleVideoData);
+    this.videos.on('select', function(selected) {
+      this.render(selected);
+    }, this);
     this.render();
   },
 
 
-  render: function() {
+  render: function(vid) {
     this.$el.html(this.template());
     new VideoListView({
       el: this.$('.list'),
@@ -17,7 +20,7 @@ var AppView = Backbone.View.extend({
     new VideoPlayerView({
       el: this.$('.player'),
       collection: this.videos
-    }).render();
+    }).render(vid);
     return this;
   },
 
