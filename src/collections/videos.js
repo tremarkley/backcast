@@ -2,11 +2,15 @@ var Videos = Backbone.Collection.extend({
 
   model: Video,
   
+  initialize: function() {
+    this.search();
+  },
+  
   parse: function(dataObj) {
     return dataObj.items;
   },
   
-  search: function(userString) {
+  search: function(userString = 'Klay Thompson') {
     var context = this;
     Backbone.ajax({
       url: 'https://www.googleapis.com/youtube/v3/search',
