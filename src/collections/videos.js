@@ -23,14 +23,13 @@ var Videos = Backbone.Collection.extend({
       
       success: function(data) {
         console.log(data);
-        context.parse(data);
+        context.set(context.parse(data));
+        context.trigger('change');
       },
       
       error: function(data) {
         console.log('ERROR', data);
       }
-       
-      
     });
   }
 });
