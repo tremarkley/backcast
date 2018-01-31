@@ -29,6 +29,7 @@
   <script src="src/views/videoPlayer.js"></script>
 
   <script>
+    window.debounce = null;
     backboneReady(() => {
       new AppView();
     });

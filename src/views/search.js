@@ -7,9 +7,12 @@ var SearchView = Backbone.View.extend({
     }.bind(this));
     
     this.$el.on('keyup', 'input', function(event) {
-      this.search();
       if (event.keyCode === 13) {
+        this.search();
         $('.form-control').val('');
+      } else {
+        clearTimeout(window.debounce);
+        window.debounce = setTimeout(this.search.bind(this), 500);
       }
     }.bind(this));
   },
