@@ -3,11 +3,13 @@ var SearchView = Backbone.View.extend({
   initialize: function() {
     this.$el.on('click', 'button', function() {
       this.search();
+      $('.form-control').val('');
     }.bind(this));
     
     this.$el.on('keyup', 'input', function(event) {
+      this.search();
       if (event.keyCode === 13) {
-        this.search();
+        $('.form-control').val('');
       }
     }.bind(this));
   },
@@ -16,7 +18,6 @@ var SearchView = Backbone.View.extend({
     var query = $('.form-control').val();
     if (query !== '') {
       this.collection.search(query);
-      $('.form-control').val('');
     }
   },
 

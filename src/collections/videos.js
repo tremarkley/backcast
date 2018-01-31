@@ -2,19 +2,14 @@ var Videos = Backbone.Collection.extend({
 
   model: Video,
   
-  initialize: function() {
-    this.search();
-  },
+  url: 'https://www.googleapis.com/youtube/v3/search',
   
   parse: function(dataObj) {
     return dataObj.items;
   },
   
   search: function(userString = 'Klay Thompson') {
-    var context = this;
-    Backbone.ajax({
-      url: 'https://www.googleapis.com/youtube/v3/search',
-      type: 'GET',
+    this.fetch({
       data: {
         part: 'snippet',
         type: 'video',
@@ -22,17 +17,6 @@ var Videos = Backbone.Collection.extend({
         maxResults: 5, 
         q: userString,
         key: window.YOUTUBE_API_KEY 
-      },
-      contentType: 'application/json',
-      
-      success: function(data) {
-        console.log(data);
-        context.set(context.parse(data));
-        context.trigger('change');
-      },
-      
-      error: function(data) {
-        console.log('ERROR', data);
       }
     });
   }
